@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>美学风格 · 找到属于你的审美倾向</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #faf8f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Songti SC', '宋体', 'STSong', 'SimSun', serif;
+            padding: 2rem 1rem;
+            color: #444444;
+            line-height: 1.7;
+            letter-spacing: 0.04em;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e0ddda;
+            padding: 3rem 2.5rem;
+            max-width: 650px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 10px;
+            text-align: center;
+            color: #3a3a3a;
+            margin-bottom: 0.6rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e0ddda;
+        }
+        .subtitle {
+            text-align: center;
+            font-weight: 300;
+            color: #999999;
+            margin-bottom: 2.6rem;
+            font-size: 0.95rem;
+            letter-spacing: 4px;
+        }
+        .password-area {
+            background: #faf8f5;
+            border: 1px solid #e0ddda;
+            padding: 1.4rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .password-label {
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: #888888;
+            font-weight: 400;
+        }
+        .gold-input {
+            background: #fff;
+            border: 1px solid #d5d2ce;
+            padding: 0.9rem 1.5rem;
+            font-size: 1.1rem;
+            font-family: 'Menlo', 'Courier New', monospace;
+            color: #444444;
+            text-align: center;
+            letter-spacing: 4px;
+            outline: none;
+            width: 100%;
+            margin-top: 0.8rem;
+        }
+        .btn {
+            background: #faf8f5;
+            border: 1px solid #d5d2ce;
+            color: #444444;
+            padding: 1rem 1.8rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: 0.1s;
+            margin-top: 1rem;
+            width: 100%;
+            font-family: inherit;
+        }
+        .btn:active {
+            background: #efebe6;
+        }
+        .error-msg {
+            color: #a0a0a0;
+            min-height: 2rem;
+            margin-top: 0.8rem;
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #9b9b9b;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e0ddda;
+            padding-bottom: 1rem;
+            font-weight: 300;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            margin: 2rem 0 2.5rem;
+            line-height: 1.7;
+            text-align: center;
+            font-weight: 400;
+            color: #3a3a3a;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .option-btn {
+            background: #fff;
+            border: 1px solid #e0ddda;
+            padding: 0.9rem 1.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 400;
+            transition: 0.15s;
+            font-family: inherit;
+            color: #555555;
+        }
+        .option-btn:active {
+            background: #efebe6;
+            border-color: #c5c0ba;
+        }
+        .result-card {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .style-name {
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: #3a3a3a;
+            margin: 1rem 0 0.5rem;
+            letter-spacing: 6px;
+        }
+        .style-subtitle {
+            font-size: 1rem;
+            color: #888888;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        .style-desc {
+            background: #faf8f5;
+            padding: 1.8rem;
+            border-left: 3px solid #c5c0ba;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555555;
+        }
+        .advice-box {
+            background: #faf8f5;
+            padding: 1.5rem;
+            border: 1px solid #e0ddda;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        .advice-title {
+            font-size: 0.95rem;
+            color: #888888;
+            border-bottom: 1px solid #e0ddda;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 3px;
+        }
+        .advice-content {
+            font-size: 0.95rem;
+            color: #555555;
+            line-height: 1.8;
+        }
+        .color-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .color-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid #d5d2ce;
+        }
+        .analysis-box {
+            background: #faf8f5;
+            padding: 1.5rem 1rem;
+            border: 1px solid #e0ddda;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .restart-btn {
+            background: transparent;
+            border: 1px solid #e0ddda;
+            color: #888888;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            padding: 0.8rem;
+            letter-spacing: 3px;
+        }
+        .footer-note {
+            margin-top: 2.5rem;
+            color: #b0b0b0;
+            font-size: 0.7rem;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 480px) {
+            .card {
+                padding: 2rem 1.2rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+                letter-spacing: 6px;
+            }
+            .style-name {
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+            }
+            .question-text {
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>美学风格</h1>
+    <div class="subtitle">找到属于你的审美倾向</div>
+
+    <div id="lockScreen">
+        <div class="password-area">
+            <span class="password-label">鉴 定 口 令</span>
+            <div style="font-size:0.8rem; color:#b0b0b0; margin-top:0.3rem;">请向发布者索取本次口令</div>
+        </div>
+        <input type="text" id="passwordInput" class="gold-input" placeholder="输入口令" autocomplete="off">
+        <button class="btn" id="unlockBtn">开 始</button>
+        <div id="lockError" class="error-msg"></div>
+    </div>
+
+    <div id="quizScreen" class="hidden">
+        <div class="progress">
+            <span id="questionCounter">第1问 / 共20问</span>
+            <span>审美倾向</span>
+        </div>
+        <div id="questionDisplay" class="question-text"></div>
+        <div id="optionsContainer" class="options"></div>
+    </div>
+
+    <div id="resultScreen" class="hidden">
+        <div class="result-card">
+            <div style="font-size:0.85rem; font-weight:300; color:#b0b0b0; letter-spacing:3px;">你的美学风格</div>
+            <div id="styleName" class="style-name">极简静奢</div>
+            <div id="styleSubtitle" class="style-subtitle"></div>
+            <div id="styleDesc" class="style-desc"></div>
+
+            <div class="advice-box">
+                <div class="advice-title">穿 搭</div>
+                <div id="adviceOutfit" class="advice-content"></div>
+            </div>
+            <div class="advice-box">
+                <div class="advice-title">妆 容</div>
+                <div id="adviceMakeup" class="advice-content"></div>
+            </div>
+            <div class="advice-box">
+                <div class="advice-title">家 居</div>
+                <div id="adviceHome" class="advice-content"></div>
+            </div>
+            <div class="advice-box">
+                <div class="advice-title">代 表 色</div>
+                <div id="adviceColors" class="color-row"></div>
+            </div>
+
+            <div style="font-size:0.95rem; color:#888888; border-bottom:1px solid #e0ddda; padding-bottom:0.5rem; margin-bottom:1rem; text-align:center; letter-spacing:3px;">审美维度</div>
+            <div class="analysis-box">
+                <canvas id="radarCanvas" width="300" height="300"></canvas>
+            </div>
+
+            <button class="btn" id="restartBtn">重新测试</button>
+            <button class="btn restart-btn" id="lockBtn">更换身份 / 锁定</button>
+        </div>
+    </div>
+    <div class="footer-note">© 美学风格研究所</div>
+</div>
+
+<script>
+(function(){
+    const FIXED_PASSWORD = "Aesthetic2024"; // 修改为自己的密码
+
+    // 八个美学风格
+    const STYLES = {
+        jijian: {
+            name: "极简静奢",
+            subtitle: "克制的、留白的、重质感不重装饰的审美",
+            desc: "你的审美核心是减法。你不喜欢多余的东西，无论是衣服、家具还是画面，你都倾向于去掉一切不必要的元素，留下最本质的部分。你对材质和做工非常敏感，一件东西可以没有图案、没有logo、没有设计感，但它的面料、触感、比例必须过关。你追求的是一种安静的高级感，不靠颜色和装饰吸引人，而是靠整体的协调和细节的耐看。你不追逐潮流，因为你知道真正好的东西不会过时。",
+            outfit: "基础款为主，颜色控制在两到三种以内。白衬衫、羊绒衫、直筒裤、风衣是核心单品。重材质不重设计，避免印花、亮片、复杂剪裁。配饰少而精，一块表、一条细链就够了。",
+            makeup: "清透底妆，追求好皮肤的质感。眉形自然，不做明显修饰。眼妆极淡，只强调睫毛。唇色选裸色、豆沙色、奶茶色，哑光质地。整体妆感接近素颜，但比素颜精致。",
+            home: "白墙、木地板、少量家具。不堆砌装饰品，每一件物品都有它的位置。光线柔和，色调统一。材质以木、棉、麻、石为主。",
+            colors: ["#F5F0E8", "#D9D2C7", "#A8A29A", "#3A3A3A"],
+            dims: { 冷感:80, 甜度:10, 成熟:85, 量感:20, 锐度:60, 古典:60 }
+        },
+        fashi: {
+            name: "法式复古",
+            subtitle: "慵懒的、随意的、有生活痕迹的审美",
+            desc: "你的审美核心是松弛。你不喜欢用力过猛的东西，也不喜欢完美无瑕的精致。你欣赏的是一种好像没怎么打理、但就是好看的状态。你喜欢有年代感的东西，旧木桌、藤编椅、印花裙、红唇，这些元素组合在一起，构成一种轻松又有味道的风格。你不追求整齐划一，反而喜欢一点随意、一点不完美。你的审美里有一种对生活的热爱，不冷淡，也不甜腻。",
+            outfit: "碎花裙、针织开衫、牛仔裤、白T恤、平底鞋。颜色以奶油白、酒红、焦糖、藏蓝为主。不追求修身，宽松舒适优先。可以有一点复古元素，比如泡泡袖、方领、丝巾。",
+            makeup: "底妆自然，不追求无瑕。眉毛保留自然弧度，不刻意描画。眼妆简单，重点在唇。红唇是标志，但不需要唇线分明，可以有一点晕染。腮红淡淡扫过，整体看起来像刚出门的样子。",
+            home: "旧木家具、藤编、黄铜、暖光。桌上有花，墙上有画。不追求统一风格，混搭也好看。喜欢有使用痕迹的物件。",
+            colors: ["#F5E6D3", "#B23A48", "#C97B4A", "#2C3E50"],
+            dims: { 冷感:30, 甜度:60, 成熟:60, 量感:50, 锐度:30, 古典:80 }
+        },
+        riyi: {
+            name: "日系文艺",
+            subtitle: "安静的、干净的、有书卷气的审美",
+            desc: "你的审美核心是素。你不喜欢浓烈的颜色和复杂的设计，你偏爱干净的、清淡的、让人心里安静的东西。你欣赏棉麻的质感、原木的温度、白瓷的光泽。你的生活里有很多留白，无论是空间还是时间，你都需要呼吸感。你不喜欢吵闹和拥挤，也不喜欢过于耀眼的东西。你的审美是一种内敛的表达，不张扬，但耐看。",
+            outfit: "棉麻衬衫、素色长裙、宽松裤装、帆布鞋。颜色以亚麻、灰棕、米色、藏青为主。不追求修身，以舒适为主。避免亮色和复杂图案。",
+            makeup: "底妆轻薄，保留皮肤原本的质感。眉形自然，几乎不修饰。眼妆可以省略，只强调睫毛。唇色接近原本唇色，或极淡的润唇膏。整体妆感接近素颜。",
+            home: "原木家具、白瓷餐具、棉麻布艺、绿植。空间干净，物品不多。光线自然，色调统一。喜欢手工感和自然材质。",
+            colors: ["#D9CBB8", "#A89B8C", "#8B7E6C", "#F0EDE6"],
+            dims: { 冷感:50, 甜度:50, 成熟:30, 量感:20, 锐度:20, 古典:85 }
+        },
+        gangfeng: {
+            name: "复古港风",
+            subtitle: "浓烈的、明艳的、有故事感的审美",
+            desc: "你的审美核心是浓。你喜欢有存在感的东西，颜色要饱和，线条要清晰，风格要鲜明。你欣赏上世纪八九十年代的美，那种明艳大气、不遮不掩的风格。你喜欢红唇、浓眉、大波浪，喜欢有轮廓感的衣服和有重量的配饰。你的审美里有一种自信和张扬，不需要低调，也不需要克制。你喜欢被人看见，也喜欢那种强烈的视觉冲击。",
+            outfit: "有轮廓感的西装、衬衫、连衣裙。颜色以正红、墨绿、黑、金为主。可以大胆用色，可以穿印花和亮面。配饰有存在感，比如金属耳环、粗项链。",
+            makeup: "眉形毛流感强，眉色浓。眼妆深邃，眼线明显。唇妆用正红或复古红，唇峰分明。底妆偏哑光，适当修容强调骨骼。",
+            home: "深色木质、金色配件、复古灯、丝绒材质。空间有重量感，色调偏暗。喜欢有年代感的物件。",
+            colors: ["#8B0000", "#2F4F4F", "#000000", "#C5A059"],
+            dims: { 冷感:50, 甜度:20, 成熟:80, 量感:85, 锐度:70, 古典:85 }
+        },
+        zhixing: {
+            name: "知性老钱",
+            subtitle: "低调的、耐看的、不费力的审美",
+            desc: "你的审美核心是稳。你不喜欢张扬的东西，也不喜欢追潮流。你欣赏的是那种看起来普通、但越看越有味道的风格。你注重剪裁和质感，一件衣服可以没有图案、没有logo，但版型和面料必须好。你的审美里有一种从容和自信，不需要靠外在的东西证明什么。你喜欢经典的东西，因为它们经得起时间。",
+            outfit: "剪裁好的西装、大衣、衬衫、直筒裤。颜色以藏青、驼、灰、白为主。不露logo，不穿太紧或太短的衣服。配饰精致但低调，比如珍珠耳钉、细皮带。",
+            makeup: "干净底妆，追求好气色。眉形自然，不粗不细。眼妆简单，只画内眼线。唇色选豆沙色、玫瑰色，自然质地。整体妆容得体，不浓不淡。",
+            home: "皮质沙发、深色木家具、金属细节。空间整洁，物品有品质。不追求流行，以耐看为主。",
+            colors: ["#2C3E50", "#C19A6B", "#808080", "#FFFFFF"],
+            dims: { 冷感:70, 甜度:15, 成熟:90, 量感:40, 锐度:50, 古典:60 }
+        },
+        anhei: {
+            name: "暗黑学院",
+            subtitle: "冷峻的、克制的、有书卷气的审美",
+            desc: "你的审美核心是冷。你喜欢深色，喜欢有结构感的东西，喜欢那种安静但有力量的感觉。你欣赏学院派的严谨和克制，喜欢格纹、衬衫、西装、深色书架。你的审美里有一种智性的冷感，不热情，也不讨好。你喜欢有秩序的空间，喜欢整齐的排列，喜欢一切都在它该在的位置。",
+            outfit: "格纹西装、衬衫、针织马甲、百褶裙、长袜。颜色以黑、深灰、墨绿、藏蓝为主。版型偏修身或直筒，避免宽松和随意。",
+            makeup: "冷调底妆，肤色偏白。眉形偏直，眉色深。眼妆用深色眼线，不晕染。唇色选哑光深红或裸色，不追求水润。",
+            home: "深色书架、黄铜台灯、暗色墙面、皮质椅子。空间有秩序感，物品排列整齐。",
+            colors: ["#1A1A1A", "#36454F", "#2F4F4F", "#0A0A0A"],
+            dims: { 冷感:85, 甜度:10, 成熟:75, 量感:45, 锐度:80, 古典:55 }
+        },
+        hanxi: {
+            name: "韩系温柔",
+            subtitle: "柔和的、甜美的、有亲和力的审美",
+            desc: "你的审美核心是柔。你喜欢浅色、柔和的线条、温暖的感觉。你欣赏那种看起来舒服、不刺眼的美。你喜欢针织、棉布、浅色木，喜欢一切让人放松的东西。你的审美里有一种温柔的力量，不强势，但让人愿意靠近。你喜欢明亮但不刺眼的空间，喜欢柔软但不甜腻的风格。",
+            outfit: "针织衫、半身裙、浅色牛仔裤、小白鞋。颜色以奶白、浅粉、米杏、浅蓝为主。版型偏宽松，但不邋遢。可以有荷叶边、蝴蝶结等柔和元素。",
+            makeup: "水润底妆，追求通透感。眉形柔和，眉色浅。眼妆用粉色、杏色，强调卧蚕。唇釉选珊瑚色、蜜桃色，水润质地。",
+            home: "浅色木质、布艺沙发、暖光、小摆件。空间明亮，色调柔和。喜欢柔软的织物和温暖的氛围。",
+            colors: ["#FFF0F0", "#FFDAB9", "#F5DEB3", "#B0E0E6"],
+            dims: { 冷感:15, 甜度:90, 成熟:25, 量感:25, 锐度:20, 古典:30 }
+        },
+        nanfa: {
+            name: "南法度假",
+            subtitle: "明亮的、松弛的、有阳光感的审美",
+            desc: "你的审美核心是暖。你喜欢阳光、自然、有生命力的东西。你欣赏那种不刻意、不精致、但有温度的美。你喜欢亚麻、草编、陶罐、绿植，喜欢明亮的颜色和自然的光线。你的审美里有一种对生活的热情，不冷淡，也不复杂。你喜欢一切让人感到放松和愉悦的东西。",
+            outfit: "亚麻衬衫、棉质长裙、草编包、平底凉鞋。颜色以姜黄、天蓝、陶土、白为主。版型宽松，面料透气。可以有印花和刺绣。",
+            makeup: "阳光感底妆，肤色自然。眉形自然，不刻意。眼妆简单，可以省略。唇色选裸色或橘调，自然质地。腮红扫在颧骨，像晒过太阳。",
+            home: "藤编家具、陶罐、绿植、白墙、木质地板。空间明亮通透，有自然光。喜欢手工感和天然材质。",
+            colors: ["#E6B800", "#87CEEB", "#E2725B", "#FFFFFF"],
+            dims: { 冷感:20, 甜度:65, 成熟:50, 量感:50, 锐度:25, 古典:45 }
+        }
+    };
+
+    const DIM_NAMES = ["冷感", "甜度", "成熟", "量感", "锐度", "古典"];
+
+    // 20道题，每道题对应六个维度的加分（正向或负向）
+    // 维度顺序：冷感、甜度、成熟、量感、锐度、古典
+    const QUESTIONS = [
+        { text: "我更容易被低饱和度的颜色吸引，而不是鲜艳的撞色。", dims: [2, -1, 1, -1, 0, 0] },
+        { text: "我会因为一张照片的色调而把它保存下来。", dims: [1, 0, 0, 0, 0, 1] },
+        { text: "我喜欢在早晨或傍晚拍照，因为那时光线柔和。", dims: [0, 1, 0, 0, -1, 1] },
+        { text: "买衣服时，材质比品牌更能说服我。", dims: [0, 0, 2, -1, 0, 1] },
+        { text: "我欣赏旧物上的磨损和使用痕迹。", dims: [0, 0, 1, 0, -1, 2] },
+        { text: "我对气味、触感、温度这类感受很敏感。", dims: [1, 1, 0, 0, 0, 0] },
+        { text: "我喜欢的穿搭是松弛、不用力的。", dims: [0, 1, 0, -1, -2, 0] },
+        { text: "我更偏爱经典款，而不是当季流行。", dims: [0, -1, 2, 0, 0, 1] },
+        { text: "我愿意花时间挑一件真正喜欢的东西，而不是快速买很多。", dims: [1, 0, 1, 0, 0, 1] },
+        { text: "我不喜欢身上有太多元素，越简单越舒服。", dims: [2, -1, 0, -2, 1, 0] },
+        { text: "走进一家店，我先注意到的是整体氛围，而不是某一件单品。", dims: [1, 0, 0, 0, 0, 1] },
+        { text: "我喜欢留白多的排版或空间。", dims: [2, 0, 1, -2, 0, 0] },
+        { text: "我喜欢的室内是暖色调的，而不是冷白色。", dims: [-2, 2, 0, 0, 0, 1] },
+        { text: "我理想的家是干净、安静、有呼吸感的。", dims: [2, -1, 0, -1, 1, 0] },
+        { text: "我常常被某部电影的画面风格吸引。", dims: [1, 0, 0, 0, 0, 1] },
+        { text: "我喜欢的画面往往安静、克制，而不是热闹的。", dims: [2, -1, 0, 0, 1, 0] },
+        { text: "我欣赏那些不刻意、不做作的作品。", dims: [0, 1, 0, 0, -1, 1] },
+        { text: "我不喜欢太闪亮或太花哨的东西。", dims: [2, -2, 0, -2, 0, 0] },
+        { text: "我常常因为一个包装的设计而决定买不买。", dims: [1, 0, 0, 0, 0, 1] },
+        { text: "我宁愿东西少一点，但每一件都要喜欢。", dims: [2, -1, 1, -2, 0, 0] }
+    ];
+
+    const OPTIONS = ["非常像我", "像我", "中立", "不像我", "非常不像我"];
+    const OPTION_VALUES = [2, 1, 0, -1, -2];
+
+    let dimScores = [0,0,0,0,0,0];
+    let currentQ = 0;
+    let unlocked = false;
+
+    const lockScreen = document.getElementById('lockScreen');
+    const quizScreen = document.getElementById('quizScreen');
+    const resultScreen = document.getElementById('resultScreen');
+    const pwInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const lockError = document.getElementById('lockError');
+    const questionCounter = document.getElementById('questionCounter');
+    const questionDisplay = document.getElementById('questionDisplay');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const styleName = document.getElementById('styleName');
+    const styleSubtitle = document.getElementById('styleSubtitle');
+    const styleDesc = document.getElementById('styleDesc');
+    const adviceOutfit = document.getElementById('adviceOutfit');
+    const adviceMakeup = document.getElementById('adviceMakeup');
+    const adviceHome = document.getElementById('adviceHome');
+    const adviceColors = document.getElementById('adviceColors');
+    const restartBtn = document.getElementById('restartBtn');
+    const lockBtn = document.getElementById('lockBtn');
+    const radarCanvas = document.getElementById('radarCanvas');
+
+    function resetScores() { dimScores = [0,0,0,0,0,0]; }
+
+    function startQuiz() {
+        resetScores();
+        currentQ = 0;
+        lockScreen.classList.add('hidden');
+        resultScreen.classList.add('hidden');
+        quizScreen.classList.remove('hidden');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        if (currentQ < QUESTIONS.length) {
+            const q = QUESTIONS[currentQ];
+            questionDisplay.textContent = q.text;
+            questionCounter.textContent = `第${currentQ+1}问 / 共${QUESTIONS.length}问`;
+            let html = '';
+            for (let i=0; i<OPTIONS.length; i++) {
+                html += `<button class="option-btn" data-value="${OPTION_VALUES[i]}">${OPTIONS[i]}</button>`;
+            }
+            optionsContainer.innerHTML = html;
+            document.querySelectorAll('.option-btn').forEach(b => {
+                b.addEventListener('click', onSelect);
+            });
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function onSelect(e) {
+        const value = parseInt(e.currentTarget.dataset.value);
+        const impacts = QUESTIONS[currentQ].dims;
+        for (let i=0; i<6; i++) dimScores[i] += impacts[i] * value;
+        currentQ++;
+        renderQuestion();
+    }
+
+    function normalizeScores() {
+        let minScore = Math.min(...dimScores);
+        let maxScore = Math.max(...dimScores);
+        if (maxScore === minScore) return dimScores.map(() => 50);
+        return dimScores.map(s => Math.round((s - minScore) / (maxScore - minScore) * 80 + 10));
+    }
+
+    function drawRadar(normScores) {
+        const ctx = radarCanvas.getContext('2d');
+        const w = radarCanvas.width = 300;
+        const h = radarCanvas.height = 300;
+        const cx = w/2, cy = h/2, r = 105;
+        const count = 6;
+        ctx.clearRect(0,0,w,h);
+
+        for (let i=1; i<=4; i++) {
+            ctx.beginPath();
+            ctx.strokeStyle = '#e0ddda';
+            ctx.lineWidth = 0.5;
+            for (let j=0; j<count; j++) {
+                const ang = Math.PI*2/count*j - Math.PI/2;
+                const x = cx + r/4*i * Math.cos(ang);
+                const y = cy + r/4*i * Math.sin(ang);
+                if (j===0) ctx.moveTo(x,y);
+                else ctx.lineTo(x,y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        for (let j=0; j<count; j++) {
+            const ang = Math.PI*2/count*j - Math.PI/2;
+            const x = cx + r * Math.cos(ang);
+            const y = cy + r * Math.sin(ang);
+            ctx.beginPath();
+            ctx.moveTo(cx,cy);
+            ctx.lineTo(x,y);
+            ctx.strokeStyle = '#e0ddda';
+            ctx.stroke();
+            ctx.fillStyle = '#888888';
+            ctx.font = '11px "Songti SC", "宋体", serif';
+            ctx.textAlign = 'center';
+            const lx = cx + (r+20) * Math.cos(ang);
+            const ly = cy + (r+16) * Math.sin(ang);
+            ctx.fillText(DIM_NAMES[j], lx, ly);
+        }
+
+        ctx.beginPath();
+        for (let j=0; j<count; j++) {
+            const ang = Math.PI*2/count*j - Math.PI/2;
+            const val = normScores[j]/100;
+            const x = cx + r*val * Math.cos(ang);
+            const y = cy + r*val * Math.sin(ang);
+            if (j===0) ctx.moveTo(x,y);
+            else ctx.lineTo(x,y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(120,120,120,0.15)';
+        ctx.fill();
+        ctx.strokeStyle = '#8a8a8a';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        for (let j=0; j<count; j++) {
+            const ang = Math.PI*2/count*j - Math.PI/2;
+            const x = cx + r*normScores[j]/100 * Math.cos(ang);
+            const y = cy + r*normScores[j]/100 * Math.sin(ang);
+            ctx.beginPath();
+            ctx.arc(x,y,3,0,Math.PI*2);
+            ctx.fillStyle = '#888888';
+            ctx.fill();
+        }
+    }
+
+    function finishQuiz() {
+        let bestStyle = 'jijian';
+        let bestSim = -1;
+        for (let styleId in STYLES) {
+            const styleDims = STYLES[styleId].dims;
+            const weights = DIM_NAMES.map(n => styleDims[n] / 100);
+            let dot = 0, magUser = 0, magStyle = 0;
+            for (let i=0; i<6; i++) {
+                dot += dimScores[i] * weights[i];
+                magUser += dimScores[i] * dimScores[i];
+                magStyle += weights[i] * weights[i];
+            }
+            magUser = Math.sqrt(magUser);
+            magStyle = Math.sqrt(magStyle);
+            if (magUser === 0 || magStyle === 0) continue;
+            const sim = dot / (magUser * magStyle);
+            if (sim > bestSim) {
+                bestSim = sim;
+                bestStyle = styleId;
+            }
+        }
+
+        const detail = STYLES[bestStyle];
+        styleName.textContent = detail.name;
+        styleSubtitle.textContent = detail.subtitle;
+        styleDesc.textContent = detail.desc;
+        adviceOutfit.textContent = detail.outfit;
+        adviceMakeup.textContent = detail.makeup;
+        adviceHome.textContent = detail.home;
+        adviceColors.innerHTML = detail.colors.map(c => 
+            `<div class="color-item"><span class="color-dot" style="background:${c}"></span>${c}</div>`
+        ).join('');
+
+        drawRadar(normalizeScores());
+
+        quizScreen.classList.add('hidden');
+        resultScreen.classList.remove('hidden');
+    }
+
+    function resetLock() {
+        pwInput.value='';
+        lockError.textContent='';
+        unlocked=false;
+        quizScreen.classList.add('hidden');
+        resultScreen.classList.add('hidden');
+        lockScreen.classList.remove('hidden');
+    }
+
+    unlockBtn.addEventListener('click', ()=>{
+        if(pwInput.value.trim()===FIXED_PASSWORD) {
+            unlocked=true;
+            startQuiz();
+        } else {
+            lockError.textContent='口令错误';
+            pwInput.value='';
+        }
+    });
+    pwInput.addEventListener('keypress', e=>{ if(e.key==='Enter') unlockBtn.click(); });
+    restartBtn.addEventListener('click', ()=>{ if(unlocked) startQuiz(); else resetLock(); });
+    lockBtn.addEventListener('click', resetLock);
+    document.addEventListener('contextmenu', e=>e.preventDefault());
+    resetLock();
+})();
+</script>
+</body>
+</html>
